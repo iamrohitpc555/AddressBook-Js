@@ -1,7 +1,5 @@
 class Contact{
 
-    
-
     constructor(...params)
     {
         this.firstName = params[0];
@@ -14,7 +12,6 @@ class Contact{
         this.email = params[7];
     }
 
-
     get firstName()
     {
         return this._firstName;
@@ -22,10 +19,9 @@ class Contact{
 
     set firstName(firstName)
     {
-        let firstNameregex = RegExp('^[A-Z][a-z]{2,}$');
-        if(firstNameregex.test(firstName))
-        this._firstName=firstName;
-        
+        let firstNameRegex = RegExp('^[A-Z][a-z]{2,}$')
+        if(firstNameRegex.test(firstName))
+        this._firstName = firstName;
         else
         throw 'First Name Invalid'
     }
@@ -37,17 +33,21 @@ class Contact{
 
     set lastName(lastName)
     {
-        let lastNameregex= RegExp('^[A-Z][a-z]{2,}$')
-        if(lastNameregex.test(lastName))
-        this._lastName=lastName;
-
+        let lastNameRegex = RegExp('^[A-Z][a-z]{2,}$')
+        if(lastNameRegex.test(lastName))
+        this._lastName = lastName;
         else
         throw 'Last Name Invalid'
     }
 
+    get address()
+    {
+        return this._address;
+    }
+
     set address(address)
     {
-        let addressRegex = RegExp('^[A-Za-z\\s0-9]{4,}$')
+        let addressRegex = RegExp('^[A-Za-z\\s0-9,]{4,}$')
         if(addressRegex.test(address))
         this._address = address;
         else
@@ -129,14 +129,24 @@ class Contact{
         return "FirstName = "+this.firstName+", LastName = "+this.lastName+", Address = "+this.address+
                 ", City = "+this.city+", State = "+this.state+", Zip = "+this.zip+", Phone = "+this.phone+", Email = "+this.email;
     }
+
 }
 
-    try{
-        let contact = new Contact("abc","def","jawahar nagar","Paris","New York",10001,4738762386,"abc@Yahoo.com");
-        console.log(contact.toString());
-        }catch(e)
-        {
-            console.error(e);
-        }
+let addressBook = new Array();
 
+function addContact(...params) {
+    try{
+    let newContact = new Contact(params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
+    addressBook.push(newContact);
+    }catch(e){
+        console.error(e);
+    }
     
+}
+
+addContact("Tony","Stark","10880 Malibu Point 90265","New York City","New York",10001,9876432387,"tonystark@Yahoo.com");
+addContact("Steve","Rogers","569 Leaman Place Brooklyn Heights","New York City","New York",11212,7777979699,"steverogers@outlook.com");
+addContact("Bruce","Banner","10 Banner Residency, Dayton, Ohio","Dayton","Ohio",45377,9999999999,"bannerbruce@gmail.com");
+addContact("Barry","Allen","Allen Recedency Central City","Central City","Missouri",42330,7654321299,"allen@yahoo.com");
+addContact("Shang","Chi","Henan province Peoples Republic of China","Zhengzhou","Henan",12121,5643215699,"shang@gmail.com");
+console.log(addressBook.toString())
