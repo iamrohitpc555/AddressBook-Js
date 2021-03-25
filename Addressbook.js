@@ -135,34 +135,40 @@ class Contact{
 let addressBook = new Array();
 
 function addContact(...params) {
-    try{
-    let newContact = new Contact(params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
-    addressBook.push(newContact);
-    }catch(e){
-        console.error(e);
+    firstname = params[0];
+    lastname = params[1]; 
+    let countOfPersons = addressBook.filter(x=>x.firstName == firstname && x.lastName == lastname).reduce((totalPeople,e)=>totalPeople+1,0);
+    if (countOfPersons==0){
+        try{
+        let newContact = new Contact(params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
+        addressBook.push(newContact);
+        }catch(e){
+            console.error(e);
+        }
+    }
+    else{
+        console.log("The Contact with name already exists");
     }
     
 }
 
-function editContact(...params)
-{
-    firstName =params[0];
-    lastName = params[1];
-    let index = addressBook.findIndex(x=>x.firstName == firstName && x.lastName == lastName);
+function editContact(...params){
+    firstname = params[0];
+    lastname = params[1]; 
+    let index = addressBook.findIndex(x=>x.firstName == firstname && x.lastName == lastname);
     let newContact;
     try{
-        newContact = new Contact (params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
+    newContact = new Contact(params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
     }catch(e){
-    console.error(e);
+        console.error(e);
     }
-    addressBook[index]= newContact;
+    addressBook[index] = newContact;
 }
 
-function deleteContact(...params)
-{
-    firstName = params[0];
-    lastName = params [1];
-    let index = addressBook.findIndex(x=>x.firstName == firstName && x.lastName == lastName);
+function deleteContact(...params){
+    firstname = params[0];
+    lastname = params[1]; 
+    let index = addressBook.findIndex(x=>x.firstName == firstname && x.lastName == lastname);
     addressBook.splice(index,1);
 }
 
@@ -179,11 +185,14 @@ addContact("Shang","Chi","Henan province Peoples Republic of China","Zhengzhou",
 
 editContact("Shang","Chi","Henan province, Peoples Republic, China","Zhengzhou","Henan",12345,7823215699,"shang@gmail.com");
 console.log(addressBook.toString());
-console.log(addressBook.length);
 
 deleteContact("Shang","Chi");
 console.log(addressBook.toString());
-console.log(addressBook.length);
 
 let noOfContacts = getNoOfContacts(addressBook);
+console.log("Total no of contacts : "+noOfContacts);
+
+addContact("Bruce","Banner","10 Banner Residency, Dayton, Ohio","Dayton","Ohio",45377,9999999999,"bannerbruce@gmail.com");
+
+noOfContacts = getNoOfContacts(addressBook);
 console.log("Total no of contacts : "+noOfContacts);
