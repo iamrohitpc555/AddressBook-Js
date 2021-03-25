@@ -166,6 +166,11 @@ function deleteContact(...params)
     addressBook.splice(index,1);
 }
 
+function getNoOfContacts(array){
+    let count = array.reduce((totalCount,e)=>totalCount+1,0);
+    return count;
+}
+
 addContact("Tony","Stark","10880 Malibu Point 90265","New York City","New York",10001,9876432387,"tonystark@Yahoo.com");
 addContact("Steve","Rogers","569 Leaman Place Brooklyn Heights","New York City","New York",11212,7777979699,"steverogers@outlook.com");
 addContact("Bruce","Banner","10 Banner Residency, Dayton, Ohio","Dayton","Ohio",45377,9999999999,"bannerbruce@gmail.com");
@@ -179,3 +184,6 @@ console.log(addressBook.length);
 deleteContact("Shang","Chi");
 console.log(addressBook.toString());
 console.log(addressBook.length);
+
+let noOfContacts = getNoOfContacts(addressBook);
+console.log("Total no of contacts : "+noOfContacts);
